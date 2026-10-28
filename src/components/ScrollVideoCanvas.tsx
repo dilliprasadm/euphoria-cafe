@@ -95,22 +95,6 @@ export default function ScrollVideoCanvas({
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
 
-    // Atmospheric vignette overlay ensuring high text readability while keeping dessert luminous
-    const grad = ctx.createRadialGradient(
-      width / 2,
-      height / 2,
-      width * 0.16,
-      width / 2,
-      height / 2,
-      width * 0.85
-    );
-    grad.addColorStop(0, "rgba(23,19,12,0.22)");
-    grad.addColorStop(0.55, "rgba(23,19,12,0.5)");
-    grad.addColorStop(1, "rgba(23,19,12,0.92)");
-
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, width, height);
-
     lastRenderedIndexRef.current = index;
   }, [totalFrames]);
 

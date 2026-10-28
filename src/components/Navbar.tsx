@@ -32,27 +32,27 @@ export default function Navbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-[#17130c]/95 backdrop-blur-xl border-b border-[rgba(255,245,233,0.1)] shadow-[0_4px_30px_rgba(0,0,0,0.6)]"
-          : "bg-gradient-to-b from-[#17130c]/95 via-[#17130c]/75 to-transparent border-b border-transparent"
+          : "bg-gradient-to-b from-[#17130c]/85 via-[#17130c]/40 to-transparent border-b border-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto h-20 px-4 sm:px-6 lg:px-12 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto h-20 sm:h-24 px-4 sm:px-6 lg:px-12 flex items-center justify-between">
         {/* Brand Logo & Title */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-11 h-11 rounded-full overflow-hidden border border-brand-caramel/40 bg-surface-container-high flex items-center justify-center p-1 group-hover:border-brand-pink transition-colors shadow-lg">
+        <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
+          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-brand-caramel/60 bg-[#17130c]/90 flex items-center justify-center p-1 group-hover:border-brand-pink transition-all shadow-2xl group-hover:scale-105">
             <Image
               src="/assets/brand/logo.png"
               alt="Euphoria Café Logo"
-              width={40}
-              height={40}
-              className="object-contain"
+              width={64}
+              height={64}
+              className="object-contain w-full h-full p-0.5"
               priority
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-display text-2xl lg:text-3xl tracking-widest text-[#FFF5E9] group-hover:text-brand-pink transition-colors leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+            <span className="font-display text-2xl sm:text-3xl lg:text-4xl tracking-widest text-[#FFF5E9] group-hover:text-brand-pink transition-colors leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
               EUPHORIA CAFÉ
             </span>
-            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-brand-caramel leading-tight mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
+            <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.25em] uppercase text-brand-caramel leading-tight mt-1 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)] font-semibold">
               KORAMANGALA · BENGALURU
             </span>
           </div>
