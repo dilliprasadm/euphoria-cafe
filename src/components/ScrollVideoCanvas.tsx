@@ -95,18 +95,18 @@ export default function ScrollVideoCanvas({
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
 
-    // Subtle vignette overlay matching the dark Euphoria burgundy theme
+    // Atmospheric vignette overlay ensuring high text readability while keeping dessert luminous
     const grad = ctx.createRadialGradient(
       width / 2,
       height / 2,
-      width * 0.28,
+      width * 0.16,
       width / 2,
       height / 2,
       width * 0.85
     );
-    grad.addColorStop(0, "rgba(0,0,0,0.02)");
-    grad.addColorStop(0.7, "rgba(23,19,12,0.45)");
-    grad.addColorStop(1, "rgba(23,19,12,0.88)");
+    grad.addColorStop(0, "rgba(23,19,12,0.22)");
+    grad.addColorStop(0.55, "rgba(23,19,12,0.5)");
+    grad.addColorStop(1, "rgba(23,19,12,0.92)");
 
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
@@ -263,21 +263,27 @@ export default function ScrollVideoCanvas({
               : "opacity-0 -translate-y-12 pointer-events-none"
           }`}
         >
-          <div className="max-w-3xl flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-wine/70 border border-brand-pink/30 text-brand-pink font-mono text-xs tracking-widest uppercase mb-6 backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-brand-caramel" />
-              <span>EUPHORIA CAFÉ · KORAMANGALA 5TH BLOCK</span>
-            </div>
+          {/* Subtle center scrim ensuring 100% typography contrast over bright dessert elements */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(23,19,12,0.65)_0%,rgba(23,19,12,0.35)_55%,transparent_85%)] pointer-events-none -z-10" />
 
-            <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-[#FFF5E9] tracking-wider leading-[0.95] uppercase drop-shadow-2xl">
-              WHERE SWEET MOMENTS<br />
-              <span className="text-brand-pink">TAKE SHAPE.</span>
+          <div className="max-w-4xl flex flex-col items-center">
+            {/* Top Category Tagline */}
+            <span className="font-serif text-xs sm:text-sm tracking-[0.35em] text-[#C88752] uppercase block mb-4 font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+              EUPHORIA CAFÉ KORAMANGALA
+            </span>
+
+            {/* Editorial Serif Headline matching user reference */}
+            <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl tracking-wider uppercase leading-[0.96] drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] text-center">
+              <span className="text-[#FFF5E9] block">A LITTLE TASTE</span>
+              <span className="text-brand-pink italic block mt-1">OF EUPHORIA</span>
             </h1>
 
-            <p className="font-body text-base sm:text-xl text-[#D9C1C4] mt-6 max-w-xl leading-relaxed drop-shadow">
-              Bengaluru&apos;s premier dessert destination. Freshly pressed Belgian Liege waffles, rich couverture ganache, and hand-spun milkshakes served till 1:00 AM.
+            {/* Editorial Subtext */}
+            <p className="font-serif text-base sm:text-xl lg:text-2xl text-[#EBE1D5] mt-6 max-w-2xl leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] font-normal text-center">
+              A world of waffles, sweet treats, and happy moments. Pinned to the golden crisp honeycomb lattice.
             </p>
 
+            {/* Action CTAs */}
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/menu"
@@ -297,9 +303,9 @@ export default function ScrollVideoCanvas({
           </div>
 
           {/* Animated Scroll Cue at Bottom */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs font-mono text-brand-caramel uppercase tracking-widest animate-bounce">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-2 rounded-full bg-[#17130c]/75 border border-white/10 backdrop-blur-md text-brand-caramel font-mono text-xs uppercase tracking-widest animate-bounce shadow-xl">
             <span>SCROLL TO UNVEIL THE STORY</span>
-            <ArrowDown className="w-4 h-4" />
+            <ArrowDown className="w-3.5 h-3.5" />
           </div>
         </div>
       </div>

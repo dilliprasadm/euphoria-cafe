@@ -32,13 +32,13 @@ export default function Navbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-[#17130c]/95 backdrop-blur-xl border-b border-[rgba(255,245,233,0.1)] shadow-[0_4px_30px_rgba(0,0,0,0.6)]"
-          : "bg-transparent border-b border-transparent"
+          : "bg-gradient-to-b from-[#17130c]/95 via-[#17130c]/75 to-transparent border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto h-20 px-4 sm:px-6 lg:px-12 flex items-center justify-between">
         {/* Brand Logo & Title */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-11 h-11 rounded-full overflow-hidden border border-brand-caramel/40 bg-surface-container-high flex items-center justify-center p-1 group-hover:border-brand-pink transition-colors">
+          <div className="relative w-11 h-11 rounded-full overflow-hidden border border-brand-caramel/40 bg-surface-container-high flex items-center justify-center p-1 group-hover:border-brand-pink transition-colors shadow-lg">
             <Image
               src="/assets/brand/logo.png"
               alt="Euphoria Café Logo"
@@ -49,10 +49,10 @@ export default function Navbar() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-display text-2xl lg:text-3xl tracking-widest text-[#FFF5E9] group-hover:text-brand-pink transition-colors leading-none">
+            <span className="font-display text-2xl lg:text-3xl tracking-widest text-[#FFF5E9] group-hover:text-brand-pink transition-colors leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
               EUPHORIA CAFÉ
             </span>
-            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-brand-caramel leading-tight mt-0.5">
+            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-brand-caramel leading-tight mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
               KORAMANGALA · BENGALURU
             </span>
           </div>
@@ -66,10 +66,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-mono text-xs uppercase tracking-widest transition-all relative py-1 ${
+                className={`font-mono text-xs uppercase tracking-widest transition-all relative py-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] ${
                   isActive
                     ? "text-[#FFF5E9] font-bold"
-                    : "text-[#EBE1D5]/70 hover:text-[#FFF5E9]"
+                    : "text-[#EBE1D5]/80 hover:text-[#FFF5E9]"
                 }`}
               >
                 {link.name}
