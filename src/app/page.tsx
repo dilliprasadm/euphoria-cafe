@@ -32,17 +32,8 @@ export default function HomePage() {
 
   return (
     <div className="w-full bg-surface text-on-surface">
-      {/* 1. SCROLL-CONTROLLED VIDEO PROTOTYPE */}
+      {/* 1. CINEMATIC SCROLL-CONTROLLED HERO STAGE */}
       <ScrollVideoCanvas totalFrames={120} scrollDistance="320vh" />
-
-      {/* PIN RELEASE CONFIRMATION BAR */}
-      <div className="w-full bg-[#300f1a] border-y border-brand-pink/20 py-3.5 px-6 text-center">
-        <p className="font-mono text-xs text-brand-pink tracking-widest uppercase flex items-center justify-center gap-2">
-          <span>↓</span>
-          <span>PIN RELEASED · NORMAL PAGE SCROLL RESUMED · COMPLETE MENU REALM BELOW</span>
-          <span>↓</span>
-        </p>
-      </div>
 
       {/* 2. MENU REALM — A WORLD OF SWEETNESS */}
       <section

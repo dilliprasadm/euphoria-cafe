@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowDown, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowRight, Sparkles } from "lucide-react";
 
 interface ScrollVideoCanvasProps {
   totalFrames?: number;
@@ -254,80 +255,51 @@ export default function ScrollVideoCanvas({
           />
         )}
 
-        {/* Minimal Prototype HUD / Status Overlays */}
-        <div className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-between p-6 sm:p-10">
-          {/* Top Info Banner (below navbar) */}
-          <div className="pt-20 flex flex-col items-start gap-2">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#17130c]/80 border border-brand-pink/40 text-brand-pink font-mono text-xs tracking-widest uppercase backdrop-blur-md">
+        {/* HERO TITLE & INTRO OVERLAY (Gracefully fades on scroll) */}
+        <div
+          className={`absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-6 transition-all duration-700 ${
+            scrollProgress < 0.12
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 -translate-y-12 pointer-events-none"
+          }`}
+        >
+          <div className="max-w-3xl flex flex-col items-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-wine/70 border border-brand-pink/30 text-brand-pink font-mono text-xs tracking-widest uppercase mb-6 backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-brand-caramel" />
-              <span>SCROLL-CONTROLLED VIDEO PROTOTYPE</span>
+              <span>EUPHORIA CAFÉ · KORAMANGALA 5TH BLOCK</span>
             </div>
-            <h1 className="font-display text-4xl sm:text-6xl text-[#FFF5E9] tracking-wider leading-none uppercase drop-shadow-lg">
-              EUPHORIA CINEMATIC SCRUB
+
+            <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-[#FFF5E9] tracking-wider leading-[0.95] uppercase drop-shadow-2xl">
+              WHERE SWEET MOMENTS<br />
+              <span className="text-brand-pink">TAKE SHAPE.</span>
             </h1>
-            <p className="font-mono text-xs text-[#D9C1C4] max-w-lg mt-1 drop-shadow">
-              Original waffle footage &rarr; FFmpeg WebP frames &rarr; Canvas &rarr; GSAP ScrollTrigger.
+
+            <p className="font-body text-base sm:text-xl text-[#D9C1C4] mt-6 max-w-xl leading-relaxed drop-shadow">
+              Bengaluru&apos;s premier dessert destination. Freshly pressed Belgian Liege waffles, rich couverture ganache, and hand-spun milkshakes served till 1:00 AM.
             </p>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/menu"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-brand-cream text-brand-chocolate hover:bg-brand-caramel hover:text-white transition-all font-mono text-xs font-bold uppercase tracking-widest shadow-2xl group"
+              >
+                <span>EXPLORE MENU</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+
+              <Link
+                href="/find-us"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-brand-pink/50 bg-[#30201F]/80 text-[#FFF5E9] hover:bg-brand-wine transition-all font-mono text-xs font-bold uppercase tracking-wider backdrop-blur-sm"
+              >
+                <span>RESERVE A TABLE</span>
+              </Link>
+            </div>
           </div>
 
-          {/* Bottom Controls & Real-Time Scrub HUD */}
-          <div className="flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4 pb-4">
-            {/* Scroll Indicator Prompt */}
-            <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-[#17130c]/85 border border-white/10 backdrop-blur-md text-[#FFF5E9] font-mono text-xs tracking-wider">
-              <ArrowDown className="w-4 h-4 text-brand-caramel animate-bounce" />
-              <span>
-                {activeFrameIndex === 0
-                  ? "SCROLL DOWN TO ADVANCE FRAMES"
-                  : activeFrameIndex === totalFrames - 1
-                  ? "FINAL FRAME REACHED — KEEP SCROLLING TO CONTINUE"
-                  : "SCROLL UP/DOWN TO SCRUB VIDEO"}
-              </span>
-            </div>
-
-            {/* Real-time telemetry badge: proves frame-by-frame control */}
-            <div className="flex items-center gap-4 px-5 py-2.5 rounded-xl bg-[#17130c]/90 border border-brand-caramel/40 backdrop-blur-md font-mono text-xs shadow-2xl">
-              <div className="flex flex-col items-start">
-                <span className="text-[10px] text-white/50 tracking-widest uppercase">
-                  ACTIVE FRAME
-                </span>
-                <span className="text-brand-caramel font-bold text-sm">
-                  {String(activeFrameIndex + 1).padStart(3, "0")} / {totalFrames}
-                </span>
-              </div>
-
-              <div className="w-px h-8 bg-white/15" />
-
-              <div className="flex flex-col items-start">
-                <span className="text-[10px] text-white/50 tracking-widest uppercase">
-                  PROGRESS
-                </span>
-                <span className="text-[#FFF5E9] font-bold text-sm">
-                  {Math.round(scrollProgress * 100)}%
-                </span>
-              </div>
-
-              <div className="w-px h-8 bg-white/15" />
-
-              <div className="flex flex-col items-start">
-                <span className="text-[10px] text-white/50 tracking-widest uppercase">
-                  BUFFER
-                </span>
-                <span
-                  className={`font-bold text-xs flex items-center gap-1 ${
-                    loadedCount >= totalFrames ? "text-emerald-400" : "text-amber-400"
-                  }`}
-                >
-                  {loadedCount >= totalFrames ? (
-                    <>
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      READY
-                    </>
-                  ) : (
-                    `${loadedCount}/${totalFrames}`
-                  )}
-                </span>
-              </div>
-            </div>
+          {/* Animated Scroll Cue at Bottom */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs font-mono text-brand-caramel uppercase tracking-widest animate-bounce">
+            <span>SCROLL TO UNVEIL THE STORY</span>
+            <ArrowDown className="w-4 h-4" />
           </div>
         </div>
       </div>
