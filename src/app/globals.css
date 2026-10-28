@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --font-space-mono: 'Space Mono', monospace;
+  --font-playfair: 'Playfair Display', serif;
+  --background: #17130c;
+  --foreground: #ebe1d5;
+}
+
+@layer base {
+  * {
+    border-color: rgba(255, 245, 233, 0.12);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    background-color: #17130c;
+    color: #ebe1d5;
+  }
+
+  body {
+    background-color: #17130c;
+    color: #ebe1d5;
+    font-family: var(--font-space-grotesk), sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #ffb1c1;
+    color: #5c152c;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #17130c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #39342c;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #641c32;
+}
+
+/* Glass & Texture Accents */
+.glass-panel {
+  background: rgba(35, 31, 24, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 245, 233, 0.1);
+}
+
+.glass-card {
+  background: rgba(31, 27, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 245, 233, 0.08);
+}
