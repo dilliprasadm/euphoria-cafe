@@ -19,6 +19,7 @@ export default function ScrollVideoCanvas({
   scrollDistance = "300vh",
 }: ScrollVideoCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Array of preloaded HTMLImageElements
@@ -193,10 +194,13 @@ export default function ScrollVideoCanvas({
     gsap.registerPlugin(ScrollTrigger);
 
     const container = containerRef.current;
-    if (!container) return;
+    const viewport = viewportRef.current;
+    if (!container || !viewport) return;
 
     const st = ScrollTrigger.create({
       trigger: container,
+      pin: viewport,
+      pinSpacing: false,
       start: "top top",
       end: "bottom bottom",
       scrub: true, // Direct, instant frame response without lagging behind scrollbar
@@ -232,7 +236,10 @@ export default function ScrollVideoCanvas({
       id="scroll-video-prototype"
     >
       {/* Pinned Viewport Container (100vw x 100vh) */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#17130c]">
+      <div
+        ref={viewportRef}
+        className="h-screen w-full overflow-hidden bg-[#17130c]"
+      >
         {/* HTML5 Canvas Rendering the Active WebP Frame */}
         <canvas
           ref={canvasRef}

@@ -31,7 +31,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="w-full bg-surface text-on-surface overflow-hidden">
+    <div className="w-full bg-surface text-on-surface">
       {/* 1. SCROLL-CONTROLLED VIDEO PROTOTYPE */}
       <ScrollVideoCanvas totalFrames={120} scrollDistance="320vh" />
 

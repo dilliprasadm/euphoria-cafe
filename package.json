@@ -25,11 +25,16 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.23",
+    "ffmpeg-static": "^5.3.0",
     "postcss": "^8.4.49",
+    "puppeteer-core": "^25.16.0",
     "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["unrs-resolver", "@next/swc"]
+    "onlyBuiltDependencies": [
+      "unrs-resolver",
+      "@next/swc"
+    ]
   }
 }
