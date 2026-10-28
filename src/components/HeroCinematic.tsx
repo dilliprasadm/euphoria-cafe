@@ -2,34 +2,19 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowDown, Flame, Sparkles, Droplets, Heart, ArrowRight, Compass } from "lucide-react";
+import { ArrowRight, ArrowDown } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function HeroCinematic() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [activeStage, setActiveStage] = useState<number>(1);
-  const [progressPercent, setProgressPercent] = useState<number>(0);
   const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(false);
 
-  // Check for reduced motion preference
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-      setPrefersReducedMotion(mediaQuery.matches);
-      const listener = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-      mediaQuery.addEventListener("change", listener);
-      return () => mediaQuery.removeEventListener("change", listener);
-    }
-  }, []);
-
-  // Setup Canvas & Video Rendering Pipeline
+  // Setup GSAP ScrollTrigger & Video / Canvas Scrubbing Engine
   useEffect(() => {
     if (typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
@@ -41,36 +26,36 @@ export default function HeroCinematic() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Handle canvas sizing with device pixel ratio
+    let dpr = window.devicePixelRatio || 1;
+
     const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      dpr = window.devicePixelRatio || 1;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
     let animationFrameId: number;
-    let targetTime = 0;
-    let currentTime = 0;
+    let targetTime = 0.01;
+    let currentTime = 0.01;
 
-    // Smooth render loop drawing video to canvas with cinematic grade
+    // 60fps render loop drawing video frames to full-bleed canvas
     const render = () => {
       if (video.readyState >= 2) {
-        // Interpolate time smoothly
-        currentTime += (targetTime - currentTime) * 0.15;
-        if (Math.abs(video.currentTime - currentTime) > 0.02) {
+        // Smooth interpolation for frame-accurate, stutter-free scrubbing
+        currentTime += (targetTime - currentTime) * 0.18;
+        if (Math.abs(video.currentTime - currentTime) > 0.01) {
           video.currentTime = currentTime;
         }
 
-        const rect = canvas.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
-        // Cover fit calculation
         const vWidth = video.videoWidth || 1920;
         const vHeight = video.videoHeight || 1080;
         const vAspect = vWidth / vHeight;
@@ -94,20 +79,20 @@ export default function HeroCinematic() {
         ctx.clearRect(0, 0, width, height);
         ctx.drawImage(video, offsetX, offsetY, drawW, drawH);
 
-        // Apply subtle cinematic vignette & color wash directly on canvas
-        const gradient = ctx.createRadialGradient(
+        // Subtle edge vignette to ensure text contrast while keeping central dessert bright
+        const grad = ctx.createRadialGradient(
           width / 2,
           height / 2,
-          width * 0.2,
+          width * 0.25,
           width / 2,
           height / 2,
-          width * 0.75
+          width * 0.8
         );
-        gradient.addColorStop(0, "rgba(71, 5, 29, 0.1)");
-        gradient.addColorStop(0.6, "rgba(48, 32, 31, 0.45)");
-        gradient.addColorStop(1, "rgba(23, 19, 12, 0.85)");
+        grad.addColorStop(0, "rgba(0,0,0,0.05)");
+        grad.addColorStop(0.65, "rgba(23,19,12,0.35)");
+        grad.addColorStop(1, "rgba(23,19,12,0.85)");
 
-        ctx.fillStyle = gradient;
+        ctx.fillStyle = grad;
         ctx.fillRect(0, 0, width, height);
       }
       animationFrameId = requestAnimationFrame(render);
@@ -125,7 +110,7 @@ export default function HeroCinematic() {
       handleLoadedMetadata();
     }
 
-    // GSAP ScrollTrigger for 400vh container
+    // ScrollTrigger pinning the entire 400vh section
     const container = containerRef.current;
     if (!container) return;
 
@@ -136,14 +121,13 @@ export default function HeroCinematic() {
       scrub: 1,
       onUpdate: (self) => {
         const p = self.progress;
-        setProgressPercent(Math.round(p * 100));
 
-        // Scrub video time
+        // Advance video time smoothly across full duration
         if (video.duration) {
-          targetTime = Math.max(0, Math.min(video.duration - 0.05, p * video.duration));
+          targetTime = Math.max(0.01, Math.min(video.duration - 0.05, p * video.duration));
         }
 
-        // Determine current active stage (strictly alternating 1 -> 2 -> 3 -> 4)
+        // Determine which of the 4 stages is active
         if (p < 0.25) {
           setActiveStage(1);
         } else if (p < 0.5) {
@@ -164,21 +148,21 @@ export default function HeroCinematic() {
     };
   }, []);
 
-  // Jump to specific chapter
-  const scrollToChapter = useCallback((chapter: number) => {
+  // Jump smoothly to any stage
+  const jumpToStage = useCallback((stageNum: number) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const scrollTop = window.scrollY || window.pageYOffset;
     const containerTop = rect.top + scrollTop;
     const totalScroll = containerRef.current.offsetHeight - window.innerHeight;
 
-    let targetProgress = 0.05;
-    if (chapter === 2) targetProgress = 0.35;
-    if (chapter === 3) targetProgress = 0.62;
-    if (chapter === 4) targetProgress = 0.92;
+    let targetP = 0.02;
+    if (stageNum === 2) targetP = 0.35;
+    if (stageNum === 3) targetP = 0.62;
+    if (stageNum === 4) targetP = 0.90;
 
     window.scrollTo({
-      top: containerTop + totalScroll * targetProgress,
+      top: containerTop + totalScroll * targetP,
       behavior: "smooth",
     });
   }, []);
@@ -186,10 +170,10 @@ export default function HeroCinematic() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[400vh] bg-gradient-to-b from-[#2a040e] via-[#360815] to-[#1c0209]"
+      className="relative w-full h-[400vh] bg-[#17130c]"
       id="hero-stage"
     >
-      {/* Hidden source video element used for canvas scrubbing */}
+      {/* Video element used for frame extraction and scrubbing */}
       <video
         ref={videoRef}
         src="/videos/hero-dessert.mp4"
@@ -199,277 +183,196 @@ export default function HeroCinematic() {
         className="hidden"
       />
 
-      {/* Pinned Sticky Viewport (100vh) */}
-      <div
-        ref={stickyRef}
-        className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between pt-20"
-      >
-        {/* Top HUD Sub-bar */}
-        <div className="w-full h-11 border-b border-[rgba(255,245,233,0.1)] px-4 sm:px-8 lg:px-12 flex items-center justify-between bg-black/40 backdrop-blur-md text-xs font-mono z-30">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-brand-caramel animate-pulse" />
-            <span className="text-brand-pink tracking-widest uppercase">
-              EUPHORIA SCROLL CINEMA
-            </span>
-            <span className="text-outline-variant hidden sm:inline">|</span>
-            <span className="text-[#ebe1d5]/70 hidden sm:inline">
-              SCROLL TO PROGRESS CINEMATIC STORY
-            </span>
-          </div>
+      {/* STICKY FULL-SCREEN VIEWPORT (100vw x 100vh) */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* =============================================================== */}
+        {/* 1. FULL-BLEED CINEMATIC DESSERT BACKGROUND                      */}
+        {/* =============================================================== */}
+        <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#17130c]">
+          {/* Hardware-accelerated Canvas covering the entire screen */}
+          <canvas
+            ref={canvasRef}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              isVideoReady ? "opacity-100" : "opacity-0"
+            }`}
+          />
 
-          <div className="flex items-center gap-4 text-brand-caramel">
-            <span className="font-bold text-[#FFF5E9]">
-              STAGE {String(activeStage).padStart(2, "0")} / 04
-            </span>
-            <span className="text-outline-variant">·</span>
-            <span className="text-brand-pink hidden md:inline">185°C ROTARY PRESS</span>
-          </div>
-        </div>
-
-        {/* 3-ZONE MAIN CINEMATIC STAGE */}
-        <div className="relative w-full flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
-          {/* =============================================================== */}
-          {/* BACKGROUND / CENTER CANVAS VIEWPORT (Spans full stage background) */}
-          {/* =============================================================== */}
-          <div className="absolute inset-0 z-0 bg-[#24030c] flex items-center justify-center overflow-hidden">
-            {/* The Hardware-Accelerated Scrubbing Canvas */}
-            <canvas
-              ref={canvasRef}
-              className={`w-full h-full object-cover transition-opacity duration-700 ${
-                isVideoReady && !prefersReducedMotion ? "opacity-100" : "opacity-0"
+          {/* Seamless Fallback Stages from the Storyboard */}
+          <div
+            className={`absolute inset-0 w-full h-full transition-opacity duration-700 ${
+              !isVideoReady ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          >
+            <div
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
+                activeStage === 1 ? "opacity-100" : "opacity-0"
               }`}
+              style={{ backgroundImage: `url('/assets/brand/stage-1.png')` }}
             />
-
-            {/* Fallback image when video is loading or user prefers reduced motion */}
-            {(!isVideoReady || prefersReducedMotion) && (
-              <div className="absolute inset-0">
-                <Image
-                  src="/assets/web-assets/Luxurious Chocolate Strawberry Dessert Backdrop.png"
-                  alt="Euphoria Signature Dessert Masterpiece"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#17130c] via-[#24030c]/70 to-[#17130c]/80" />
-              </div>
-            )}
-
-            {/* Atmospheric Specular Glow */}
-            <div className="absolute inset-0 bg-radial-gradient pointer-events-none z-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#17130c] via-transparent to-[#17130c]/70 pointer-events-none z-10" />
+            <div
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
+                activeStage === 2 ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ backgroundImage: `url('/assets/brand/stage-2.png')` }}
+            />
+            <div
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
+                activeStage === 3 ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ backgroundImage: `url('/assets/brand/stage-3.png')` }}
+            />
+            <div
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
+                activeStage === 4 ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ backgroundImage: `url('/assets/brand/stage-4.png')` }}
+            />
           </div>
 
-          {/* =============================================================== */}
-          {/* ZONE 1: LEFT SIDE (Active in Stage 1 & Stage 3)                   */}
-          {/* =============================================================== */}
-          <aside className="relative lg:col-span-5 h-full p-6 sm:p-10 lg:p-12 flex flex-col justify-between z-20 pointer-events-none">
-            <div className="my-auto flex flex-col justify-center relative min-h-[360px]">
-              {/* STAGE 1 — LEFT SIDE */}
-              <div
-                className={`transition-all duration-700 ${
-                  activeStage === 1
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 -translate-y-8 pointer-events-none absolute inset-0"
-                }`}
-              >
-                <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-brand-wine/50 border border-brand-pink/30 text-brand-pink font-mono text-xs tracking-widest uppercase">
-                  <Sparkles className="w-3.5 h-3.5 text-brand-caramel" />
-                  <span>STAGE 01 // THE BEGINNING</span>
-                </div>
-
-                <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFF5E9] tracking-wider leading-[0.95] drop-shadow-xl">
-                  EVERY GREAT MOMENT STARTS WITH A LITTLE MAGIC.
-                </h1>
-
-                <p className="font-body text-base sm:text-lg text-[#D9C1C4] mt-5 leading-relaxed max-w-md drop-shadow">
-                  It begins with pure ingredients, genuine passion, and a little imagination. Authentic Liege pearls suspended in golden batter anticipation, crafted live for Koramangala.
-                </p>
-
-                <div className="mt-8 flex flex-wrap items-center gap-4 text-xs font-mono text-brand-caramel uppercase tracking-widest">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-black/50 border border-white/10 backdrop-blur-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-caramel" />
-                    <span>ORIGIN: BELGIAN PEARL CRUMB</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-black/50 border border-white/10 backdrop-blur-sm">
-                    <span>100% ARTISANAL BATTER</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* STAGE 3 — LEFT SIDE */}
-              <div
-                className={`transition-all duration-700 ${
-                  activeStage === 3
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 -translate-y-8 pointer-events-none absolute inset-0"
-                }`}
-              >
-                <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-brand-wine/50 border border-brand-pink/30 text-brand-pink font-mono text-xs tracking-widest uppercase">
-                  <Droplets className="w-3.5 h-3.5 text-brand-pink" />
-                  <span>STAGE 03 // THE INDULGENCE</span>
-                </div>
-
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFF5E9] tracking-wider leading-[0.95] drop-shadow-xl">
-                  THEN COMES THE IRRESISTIBLE PART.
-                </h2>
-
-                <p className="font-body text-base sm:text-lg text-[#D9C1C4] mt-5 leading-relaxed max-w-md drop-shadow">
-                  Molten dark chocolate, fresh sliced Mahabaleshwar strawberries, and a moment worth slowing down for. Single-origin Callebaut ganache flowing in decadent rhythm over warm pockets.
-                </p>
-
-                <div className="mt-8 flex flex-wrap items-center gap-4 text-xs font-mono text-brand-caramel uppercase tracking-widest">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-black/50 border border-white/10 backdrop-blur-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-pink" />
-                    <span>54% INTENSE CALLEBAUT GANACHE</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-black/50 border border-white/10 backdrop-blur-sm">
-                    <span>MADAGASCAR VANILLA BEAN</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Left Side Status Footer */}
-            <div className="hidden lg:flex items-center gap-3 pt-4 border-t border-[rgba(255,245,233,0.1)] text-xs font-mono text-outline">
-              <span>ATMOSPHERE // SANCTUARY</span>
-              <span className="text-brand-caramel">KORAMANGALA 5TH BLOCK</span>
-            </div>
-          </aside>
-
-          {/* =============================================================== */}
-          {/* ZONE 2: EMPTY MIDDLE COLUMN (Gives visual breathing space for the dessert) */}
-          {/* =============================================================== */}
-          <div className="hidden lg:block lg:col-span-2 pointer-events-none" />
-
-          {/* =============================================================== */}
-          {/* ZONE 3: RIGHT SIDE (Active in Stage 2 & Stage 4)                  */}
-          {/* =============================================================== */}
-          <aside className="relative lg:col-span-5 h-full p-6 sm:p-10 lg:p-12 flex flex-col justify-between z-20 pointer-events-none text-right lg:text-left">
-            <div className="my-auto flex flex-col justify-center relative min-h-[360px]">
-              {/* STAGE 2 — RIGHT SIDE */}
-              <div
-                className={`transition-all duration-700 ${
-                  activeStage === 2
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 translate-y-8 pointer-events-none absolute inset-0"
-                }`}
-              >
-                <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-brand-wine/50 border border-brand-pink/30 text-brand-pink font-mono text-xs tracking-widest uppercase">
-                  <Flame className="w-3.5 h-3.5 text-brand-caramel" />
-                  <span>STAGE 02 // THE CRAFT</span>
-                </div>
-
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFF5E9] tracking-wider leading-[0.95] drop-shadow-xl">
-                  GOLDEN ON THE OUTSIDE. HAPPINESS IN EVERY LAYER.
-                </h2>
-
-                <p className="font-body text-base sm:text-lg text-[#D9C1C4] mt-5 leading-relaxed max-w-md drop-shadow">
-                  A little crunch. A little warmth. A lot to look forward to. Pressed live at 185°C on custom European rotary waffle irons until the pearl sugar caramelizes to golden perfection.
-                </p>
-
-                <div className="mt-8 p-4 rounded-xl bg-black/60 border border-[rgba(255,245,233,0.1)] backdrop-blur-md max-w-md space-y-3">
-                  <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-[#D9C1C4]">Pocket Grid Depth</span>
-                    <span className="text-brand-caramel font-bold">12mm Cast Pocket</span>
-                  </div>
-                  <div className="w-full h-px bg-white/10" />
-                  <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-[#D9C1C4]">Crust Acoustic Shatter</span>
-                    <span className="text-brand-pink font-bold">98% Crisp Crunch</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* STAGE 4 — RIGHT SIDE */}
-              <div
-                className={`transition-all duration-700 ${
-                  activeStage === 4
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 translate-y-8 pointer-events-none absolute inset-0"
-                }`}
-              >
-                <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-brand-wine/50 border border-brand-pink/30 text-brand-pink font-mono text-xs tracking-widest uppercase">
-                  <Heart className="w-3.5 h-3.5 text-brand-pink fill-brand-pink" />
-                  <span>STAGE 04 // PURE EUPHORIA</span>
-                </div>
-
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFF5E9] tracking-wider leading-[0.95] drop-shadow-xl">
-                  MADE FOR YOUR HAPPY MOMENTS.
-                </h2>
-
-                <p className="font-body text-base sm:text-lg text-[#D9C1C4] mt-5 leading-relaxed max-w-md drop-shadow">
-                  Your next favourite sweet treat is waiting. Waffles, cheesecake wedges, crystal sundaes, and thick freakshakes. Served hot till 1:00 AM every night.
-                </p>
-
-                {/* Final Call to Action Buttons */}
-                <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 max-w-md pointer-events-auto">
-                  <Link
-                    href="/menu"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-full bg-brand-cream text-brand-chocolate hover:bg-brand-caramel hover:text-white transition-all font-mono text-xs font-bold uppercase tracking-widest shadow-2xl shadow-black/80 group"
-                  >
-                    <span>EXPLORE FULL MENU</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-
-                  <Link
-                    href="/find-us"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-brand-pink/50 bg-[#30201F]/80 text-[#FFF5E9] hover:bg-brand-wine hover:border-brand-pink transition-all font-mono text-xs font-bold uppercase tracking-wider"
-                  >
-                    <Compass className="w-4 h-4 text-brand-caramel" />
-                    <span>VISIT THE CAFÉ</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Side Status Footer */}
-            <div className="hidden lg:flex items-center justify-between pt-4 border-t border-[rgba(255,245,233,0.1)] text-xs font-mono text-outline">
-              <span>SERVED HOT TO ORDER</span>
-              <span className="text-secondary font-bold">11:00 AM — 01:00 AM</span>
-            </div>
-          </aside>
+          {/* Deep dark cinematic vignette overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#17130c]/90 via-transparent to-[#17130c]/70 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1)_0%,rgba(23,19,12,0.75)_100%)] pointer-events-none" />
         </div>
 
         {/* =============================================================== */}
-        {/* BOTTOM SYNCHRONIZED CHAPTER JUMP SCRUBBER & TIMELINE             */}
+        {/* 2. THE 4 STORYBOARD POINTS IN EMPTY SPACE (LEFT / RIGHT)        */}
         {/* =============================================================== */}
-        <div className="w-full h-16 border-t border-[rgba(255,245,233,0.12)] px-4 sm:px-8 lg:px-12 flex items-center justify-between bg-[#1f030a]/95 backdrop-blur-md z-30">
-          <div className="hidden sm:flex items-center gap-3 font-mono text-xs text-outline">
-            <span className="text-brand-caramel font-bold">SCRUBBER</span>
-            <span>{progressPercent}%</span>
-            <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-brand-caramel transition-all duration-150"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
-          </div>
 
-          {/* Interactive Chapter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto py-1 mx-auto sm:mx-0">
-            {[
-              { num: 1, title: "The Beginning" },
-              { num: 2, title: "The Craft" },
-              { num: 3, title: "The Indulgence" },
-              { num: 4, title: "Pure Euphoria" },
-            ].map((ch) => (
-              <button
-                key={ch.num}
-                onClick={() => scrollToChapter(ch.num)}
-                className={`px-3 sm:px-4 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider transition-all duration-300 ${
-                  activeStage === ch.num
-                    ? "bg-brand-caramel text-brand-chocolate font-bold shadow-md shadow-brand-caramel/20 scale-105"
-                    : "text-[#D9C1C4]/80 hover:text-[#FFF5E9] hover:bg-white/5 border border-transparent"
-                }`}
-              >
-                <span>{`0${ch.num} / ${ch.title}`}</span>
-              </button>
-            ))}
-          </div>
+        {/* STAGE 1 — LEFT SIDE (Active in Stage 1) */}
+        <div
+          className={`absolute left-6 sm:left-12 lg:left-24 top-1/2 -translate-y-1/2 max-w-xl z-20 transition-all duration-700 ${
+            activeStage === 1
+              ? "opacity-100 translate-y-[-50%] pointer-events-auto"
+              : "opacity-0 translate-y-[-45%] pointer-events-none"
+          }`}
+        >
+          <span className="font-mono text-xs sm:text-sm text-brand-caramel tracking-[0.25em] uppercase block mb-3 font-semibold">
+            01 &nbsp;/&nbsp; THE BEGINNING
+          </span>
+          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#FFF5E9] leading-[1.08] tracking-tight drop-shadow-2xl">
+            Every great moment starts with a little{" "}
+            <span className="text-brand-pink italic">magic.</span>
+          </h2>
+          <p className="font-body text-base sm:text-lg text-[#D9C1C4] mt-5 leading-relaxed max-w-md drop-shadow">
+            It begins with simple ingredients and a little imagination.
+          </p>
 
-          <div className="hidden lg:flex items-center gap-2 font-mono text-xs text-brand-pink">
-            <span className="animate-bounce">↓</span>
-            <span className="tracking-wider uppercase">SCROLL FOR MENU & STORY</span>
+          <div className="mt-8 flex items-center gap-3 text-xs font-mono text-[#FFF5E9]/60 tracking-widest uppercase">
+            <span className="w-8 h-px bg-brand-caramel" />
+            <span>SCROLL TO DISCOVER</span>
+            <ArrowDown className="w-3.5 h-3.5 text-brand-caramel animate-bounce" />
+          </div>
+        </div>
+
+        {/* STAGE 2 — RIGHT SIDE (Active in Stage 2) */}
+        <div
+          className={`absolute right-6 sm:right-12 lg:right-28 top-1/2 -translate-y-1/2 max-w-xl z-20 text-left transition-all duration-700 ${
+            activeStage === 2
+              ? "opacity-100 translate-y-[-50%] pointer-events-auto"
+              : "opacity-0 translate-y-[-45%] pointer-events-none"
+          }`}
+        >
+          <span className="font-mono text-xs sm:text-sm text-brand-caramel tracking-[0.25em] uppercase block mb-3 font-semibold">
+            02 &nbsp;/&nbsp; THE CRAFT
+          </span>
+          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#FFF5E9] leading-[1.08] tracking-tight drop-shadow-2xl">
+            Golden on the outside. Happiness in{" "}
+            <span className="text-brand-pink italic">every layer.</span>
+          </h2>
+          <p className="font-body text-base sm:text-lg text-[#D9C1C4] mt-5 leading-relaxed max-w-md drop-shadow">
+            A little texture. A little warmth. A lot to look forward to.
+          </p>
+        </div>
+
+        {/* STAGE 3 — LEFT SIDE (Active in Stage 3) */}
+        <div
+          className={`absolute left-6 sm:left-12 lg:left-24 top-1/2 -translate-y-1/2 max-w-xl z-20 transition-all duration-700 ${
+            activeStage === 3
+              ? "opacity-100 translate-y-[-50%] pointer-events-auto"
+              : "opacity-0 translate-y-[-45%] pointer-events-none"
+          }`}
+        >
+          <span className="font-mono text-xs sm:text-sm text-brand-caramel tracking-[0.25em] uppercase block mb-3 font-semibold">
+            03 &nbsp;/&nbsp; THE INDULGENCE
+          </span>
+          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#FFF5E9] leading-[1.08] tracking-tight drop-shadow-2xl">
+            Then comes the{" "}
+            <span className="text-brand-pink italic">irresistible</span> part.
+          </h2>
+          <p className="font-body text-base sm:text-lg text-[#D9C1C4] mt-5 leading-relaxed max-w-md drop-shadow">
+            Rich chocolate, fresh toppings, and a moment worth slowing down for.
+          </p>
+        </div>
+
+        {/* STAGE 4 — RIGHT SIDE (Active in Stage 4) */}
+        <div
+          className={`absolute right-6 sm:right-12 lg:right-28 top-1/2 -translate-y-1/2 max-w-xl z-20 text-left transition-all duration-700 ${
+            activeStage === 4
+              ? "opacity-100 translate-y-[-50%] pointer-events-auto"
+              : "opacity-0 translate-y-[-45%] pointer-events-none"
+          }`}
+        >
+          <span className="font-mono text-xs sm:text-sm text-brand-caramel tracking-[0.25em] uppercase block mb-3 font-semibold">
+            04 &nbsp;/&nbsp; PURE EUPHORIA
+          </span>
+          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#FFF5E9] leading-[1.08] tracking-tight drop-shadow-2xl">
+            Made for your{" "}
+            <span className="text-brand-pink italic">happy moments.</span>
+          </h2>
+          <p className="font-body text-base sm:text-lg text-[#D9C1C4] mt-5 leading-relaxed max-w-md drop-shadow">
+            More than waffles. A little joy in every bite.
+          </p>
+
+          {/* Explore The Menu Pill Button */}
+          <div className="mt-8">
+            <Link
+              href="/menu"
+              className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-brand-cream text-brand-chocolate hover:bg-brand-caramel hover:text-white transition-all font-mono text-xs font-bold uppercase tracking-widest shadow-2xl group"
+            >
+              <span>EXPLORE THE MENU</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+
+        {/* =============================================================== */}
+        {/* 3. FAR-RIGHT VERTICAL STORYBOARD TIMELINE (01, 02, 03, 04)       */}
+        {/* =============================================================== */}
+        <div className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center">
+          {/* Subtle connecting vertical line */}
+          <div className="absolute top-2 bottom-2 w-px bg-white/20 -z-10" />
+
+          {/* 4 Storyboard Step Indicators */}
+          <div className="flex flex-col gap-8 py-2">
+            {[1, 2, 3, 4].map((step) => {
+              const isActive = activeStage === step;
+              return (
+                <button
+                  key={step}
+                  onClick={() => jumpToStage(step)}
+                  className="group flex items-center gap-3 transition-transform focus:outline-none"
+                  aria-label={`Jump to Stage ${step}`}
+                >
+                  {/* Glowing active bullet or subtle inactive circle */}
+                  <div
+                    className={`w-3.5 h-3.5 rounded-full transition-all duration-300 flex items-center justify-center ${
+                      isActive
+                        ? "bg-brand-pink ring-4 ring-brand-pink/30 scale-125 border-2 border-[#FFF5E9]"
+                        : "bg-[#17130c] border border-white/40 group-hover:border-white group-hover:scale-110"
+                    }`}
+                  />
+                  <span
+                    className={`font-mono text-[10px] tracking-wider transition-colors hidden sm:inline ${
+                      isActive
+                        ? "text-[#FFF5E9] font-bold"
+                        : "text-white/40 group-hover:text-white"
+                    }`}
+                  >
+                    {String(step).padStart(2, "0")}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

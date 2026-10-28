@@ -31,8 +31,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#17130c]/90 backdrop-blur-xl border-b border-[rgba(255,245,233,0.1)] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-          : "bg-gradient-to-b from-[#17130c]/80 via-[#17130c]/40 to-transparent"
+          ? "bg-[#17130c]/95 backdrop-blur-xl border-b border-[rgba(255,245,233,0.1)] shadow-[0_4px_30px_rgba(0,0,0,0.6)]"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto h-20 px-4 sm:px-6 lg:px-12 flex items-center justify-between">
@@ -81,22 +81,22 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Desktop Right Action: Phone Desk */}
+        {/* Desktop Right Action: Phone Desk & Reserve Pill */}
         <div className="hidden md:flex items-center gap-4">
           <a
             href="tel:+919611966969"
-            className="flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-wine bg-[#30201F]/70 text-[#FFF5E9] hover:bg-brand-wine/50 hover:border-brand-pink transition-all text-xs font-mono tracking-wider group"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-[#30201F]/60 text-[#FFF5E9] hover:bg-brand-wine/50 transition-all text-xs font-mono tracking-wider group"
           >
-            <Phone className="w-3.5 h-3.5 text-brand-caramel group-hover:scale-110 transition-transform" />
+            <Phone className="w-3.5 h-3.5 text-brand-caramel" />
             <span className="text-secondary font-bold">+91 96119 66969</span>
           </a>
 
           <Link
             href="/find-us"
-            className="hidden xl:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-brand-cream text-brand-chocolate hover:bg-brand-caramel hover:text-white transition-all text-xs font-mono font-bold tracking-widest uppercase shadow-lg shadow-black/40"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-brand-cream text-brand-chocolate hover:bg-brand-caramel hover:text-white transition-all text-xs font-mono font-bold tracking-wider uppercase shadow-xl"
           >
-            <Sparkles className="w-3.5 h-3.5 text-brand-wine" />
-            <span>Reserve Table</span>
+            <span>Reserve a Table</span>
+            <span className="text-xs">→</span>
           </Link>
         </div>
 
