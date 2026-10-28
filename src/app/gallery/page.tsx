@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import InstagramFeed from "@/components/InstagramFeed";
 import {
   Instagram,
   Sparkles,
@@ -18,7 +19,7 @@ import {
 interface GalleryItem {
   id: string;
   title: string;
-  category: "waffles" | "beverages" | "ambiance" | "savory";
+  category: "waffles" | "beverages" | "ambiance" | "savory" | "social";
   categoryLabel: string;
   tag: string;
   tastingNote: string;
@@ -157,6 +158,56 @@ const GALLERY_EXHIBITS: GalleryItem[] = [
     image: "/assets/gallery/DSC06493.JPG",
     span: "lg:col-span-6",
   },
+  {
+    id: "g-14",
+    title: "Fairytale Entrance Neon",
+    category: "social",
+    categoryLabel: "STREET VIEW",
+    tag: "KORAMANGALA 6TH BLK",
+    tastingNote: "Our iconic purple neon facade welcoming dessert lovers under Bangalore skies.",
+    image: "/assets/social/cafe_moment_7.jpg",
+    span: "lg:col-span-4",
+  },
+  {
+    id: "g-15",
+    title: "Euphoria Loves You Mural",
+    category: "social",
+    categoryLabel: "PHOTO CORNER",
+    tag: "MASCOT ATELIER",
+    tastingNote: "Hand-painted baby elephant mascot and plush velvet bench for candid moments.",
+    image: "/assets/social/cafe_moment_9.jpg",
+    span: "lg:col-span-4",
+  },
+  {
+    id: "g-16",
+    title: "Community Board Game Jam",
+    category: "social",
+    categoryLabel: "CUSTOMER LOVE",
+    tag: "WEEKEND CIRCLE",
+    tastingNote: "Guests unwinding with board games, giant teddy bears, and hot Liege waffles.",
+    image: "/assets/reviews/review_photo_6.jpg",
+    span: "lg:col-span-4",
+  },
+  {
+    id: "g-17",
+    title: "Floral Swing & Lantern",
+    category: "social",
+    categoryLabel: "FAIRY HAVEN",
+    tag: "TERRACE ALCOVE",
+    tastingNote: "Pastel flower canopy swing with Moroccan warm brass lantern lighting.",
+    image: "/assets/reviews/review_photo_11.jpg",
+    span: "lg:col-span-6",
+  },
+  {
+    id: "g-18",
+    title: "Birthday Indulgence Feast",
+    category: "social",
+    categoryLabel: "CELEBRATIONS",
+    tag: "BISCOFF & ROSES",
+    tastingNote: "Lotus Biscoff layer cake, golden burgers, and rose bouquets for memorable celebrations.",
+    image: "/assets/social/cafe_moment_5.jpg",
+    span: "lg:col-span-6",
+  },
 ];
 
 export default function GalleryPage() {
@@ -202,6 +253,7 @@ export default function GalleryPage() {
         <div className="mt-8 flex items-center gap-2 overflow-x-auto no-scrollbar py-2">
           {[
             { id: "all", label: "ALL EXHIBITS" },
+            { id: "social", label: "GUESTS & INSTAGRAM" },
             { id: "waffles", label: "WAFFLES & DESSERT" },
             { id: "beverages", label: "BEVERAGES & SHAKES" },
             { id: "ambiance", label: "AMBIANCE & MEMORIES" },
@@ -238,6 +290,7 @@ export default function GalleryPage() {
                 src={item.image}
                 alt={item.title}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
 
@@ -351,7 +404,12 @@ export default function GalleryPage() {
         </div>
       )}
 
-      {/* 4. CLOSING INSTAGRAM & VISIT CTA */}
+      {/* 4. INSTAGRAM FEED EMBED */}
+      <div className="mt-20">
+        <InstagramFeed />
+      </div>
+
+      {/* 5. CLOSING INSTAGRAM & VISIT CTA */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 mt-28">
         <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-[#24030c] via-[#360815] to-[#1c0209] border border-brand-pink/30 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
           <div className="max-w-xl text-center md:text-left">

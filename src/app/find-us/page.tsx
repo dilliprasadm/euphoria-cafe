@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import GoogleReviews from "@/components/GoogleReviews";
 import {
   Phone,
   MapPin,
@@ -73,7 +74,7 @@ export default function FindUsPage() {
           <div className="lg:col-span-5 relative flex justify-center">
             <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-[rgba(255,245,233,0.12)]">
               <Image
-                src="/assets/gallery/DSC06473.JPG"
+                src="/assets/social/cafe_moment_7.jpg"
                 alt="Euphoria Cafe Koramangala entrance welcoming guests"
                 fill
                 className="object-cover"
@@ -83,19 +84,19 @@ export default function FindUsPage() {
 
               {/* Coordinates Pill */}
               <div className="absolute top-4 right-4 px-4 py-1.5 rounded-full bg-brand-wine/90 backdrop-blur-md text-brand-pink font-mono text-[10px] tracking-widest uppercase border border-brand-pink/30 shadow-lg">
-                12.9352° N, 77.6245° E
+                12.9349° N, 77.6250° E
               </div>
 
               {/* Bottom Card Overlay */}
               <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-[#17130c]/90 backdrop-blur-md border border-white/10 shadow-xl">
                 <span className="font-mono text-[9px] text-brand-caramel uppercase tracking-widest block">
-                  KORAMANGALA 5TH BLOCK
+                  KORAMANGALA 6TH BLOCK
                 </span>
                 <span className="font-display text-2xl text-[#FFF5E9] tracking-wider uppercase block mt-1">
                   EUPHORIA SANCTUARY
                 </span>
                 <span className="font-body text-xs text-[#D9C1C4] block mt-0.5">
-                  Warm ambient lighting, velvet seating &amp; rotary waffle iron bar
+                  880, 6th Cross Road (Near Koramangala Club)
                 </span>
               </div>
             </div>
@@ -189,7 +190,7 @@ export default function FindUsPage() {
             </h2>
           </div>
           <p className="font-body text-sm text-[#D9C1C4] max-w-sm">
-            Situated along the bustling avenues of Koramangala 5th Block, Bengaluru.
+            880, 6th Cross Road, Koramangala 6th Block, Bengaluru (Near Koramangala Club).
           </p>
         </div>
 
@@ -200,13 +201,13 @@ export default function FindUsPage() {
               <div>
                 <div className="inline-flex items-center gap-2 text-brand-caramel font-mono text-xs uppercase tracking-widest mb-2">
                   <MapPin className="w-4 h-4" />
-                  <span>ADDRESS // 5TH BLOCK</span>
+                  <span>ADDRESS // 6TH BLOCK</span>
                 </div>
                 <h3 className="font-display text-3xl text-[#FFF5E9] tracking-wider uppercase">
                   EUPHORIA CAFÉ
                 </h3>
                 <p className="font-body text-sm text-[#D9C1C4] mt-2 leading-relaxed">
-                  Koramangala 5th Block, Bengaluru, Karnataka 560095
+                  880, 6th Cross Rd, 6th Block, Koramangala, Bengaluru, Karnataka 560095
                 </p>
                 <div className="mt-3 font-mono text-xs text-outline">
                   Ample two-wheeler and street parking adjacent.
@@ -403,7 +404,10 @@ export default function FindUsPage() {
         </div>
       </section>
 
-      {/* 5. FINAL CTA — "COME HUNGRY. LEAVE HAPPY." */}
+      {/* 5. VERIFIED GOOGLE REVIEWS */}
+      <GoogleReviews />
+
+      {/* 6. FINAL CTA — "COME HUNGRY. LEAVE HAPPY." */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 mt-28">
         <div className="p-8 sm:p-16 rounded-3xl bg-gradient-to-r from-[#24030c] via-[#360815] to-[#1c0209] border border-brand-pink/40 text-center flex flex-col items-center shadow-2xl">
           <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-brand-wine/50 border border-brand-pink/30 text-brand-pink font-mono text-xs tracking-widest uppercase">

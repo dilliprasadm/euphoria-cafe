@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ScrollVideoCanvas from "@/components/ScrollVideoCanvas";
+import GoogleReviews from "@/components/GoogleReviews";
+import InstagramFeed from "@/components/InstagramFeed";
 import { MENU_CATEGORIES } from "@/data/menuData";
 import {
   Sparkles,
@@ -389,118 +391,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. GALLERY CAPSULE — COMMUNITY CAPSULE */}
-      <section
-        id="gallery-capsule"
-        className="relative w-full bg-[#1b1510] py-24 px-6 lg:px-12 border-t border-[rgba(255,245,233,0.08)]"
-      >
-        <div className="max-w-7xl mx-auto flex flex-col">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <span className="font-mono text-xs text-brand-caramel uppercase tracking-widest block mb-2">
-                CURATED MOMENTS & COMMUNITY MEMORIES
-              </span>
-              <h2 className="font-display text-5xl sm:text-6xl text-[#FFF5E9] uppercase tracking-wider leading-none">
-                COMMUNITY CAPSULE.
-              </h2>
-            </div>
-            <a
-              href="https://www.instagram.com/euphoria_cafe_koramangala/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-xs uppercase text-brand-caramel hover:text-brand-pink transition-colors group"
-            >
-              <span>FOLLOW @EUPHORIA_CAFE_KORAMANGALA</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
-          </div>
+      {/* 3. VERIFIED GOOGLE REVIEWS SECTION */}
+      <GoogleReviews />
 
-          {/* 4 Gallery Frames */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Frame 1: Golden Waffle Platter */}
-            <div className="group relative h-80 rounded-2xl overflow-hidden shadow-xl bg-surface-container border border-white/5">
-              <Image
-                src="/assets/gallery/DSC06472.JPG"
-                alt="Euphoria waffle perfection"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#17130c]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
-                <span className="font-mono text-xs text-brand-caramel uppercase tracking-wider">
-                  Textural Matrix
-                </span>
-                <span className="font-display text-2xl text-[#FFF5E9] tracking-wider uppercase mt-1">
-                  Crisp Liege Aeration
-                </span>
-              </div>
-            </div>
-
-            {/* Frame 2: Sundae Coupe (Offset) */}
-            <div className="group relative h-80 rounded-2xl overflow-hidden shadow-xl bg-surface-container lg:translate-y-6 border border-white/5">
-              <Image
-                src="/assets/gallery/DSC06480.JPG"
-                alt="Waffle Sundae in crystal coupe"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#17130c]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
-                <span className="font-mono text-xs text-brand-pink uppercase tracking-wider">
-                  Signature Sundae
-                </span>
-                <span className="font-display text-2xl text-[#FFF5E9] tracking-wider uppercase mt-1">
-                  Mudslide Fantasy
-                </span>
-              </div>
-            </div>
-
-            {/* Frame 3: Molten Ganache Pour */}
-            <div className="group relative h-80 rounded-2xl overflow-hidden shadow-xl bg-surface-container border border-white/5">
-              <Image
-                src="/assets/gallery/DSC06484.JPG"
-                alt="Dark molten chocolate ganache pouring over freshly pressed waffle"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#17130c]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
-                <span className="font-mono text-xs text-brand-caramel uppercase tracking-wider">
-                  Pure Ganache
-                </span>
-                <span className="font-display text-2xl text-[#FFF5E9] tracking-wider uppercase mt-1">
-                  Callebaut 54% Melt
-                </span>
-              </div>
-            </div>
-
-            {/* Frame 4: Café Gathering (Offset) */}
-            <div className="group relative h-80 rounded-2xl overflow-hidden shadow-xl bg-surface-container lg:translate-y-6 border border-white/5">
-              <Image
-                src="/assets/gallery/DSC06490.JPG"
-                alt="Friends laughing and enjoying desserts at Euphoria Cafe Koramangala"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#17130c]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
-                <span className="font-mono text-xs text-brand-pink uppercase tracking-wider">
-                  Koramangala Vibes
-                </span>
-                <span className="font-display text-2xl text-[#FFF5E9] tracking-wider uppercase mt-1">
-                  Pure Euphoria
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-16 text-center">
-            <Link
-              href="/gallery"
-              className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-brand-caramel hover:text-white transition-colors"
-            >
-              <span>VIEW FULL VISUAL GALLERY (12 EXHIBITS)</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* 4. INSTAGRAM & SOCIAL MOMENTS GALLERY */}
+      <InstagramFeed />
 
       {/* 5. VISIT ATELIER — YOUR NEXT HAPPY BITE AWAITS */}
       <section
@@ -551,14 +446,14 @@ export default function HomePage() {
               </div>
               <div className="space-y-2">
                 <h3 className="font-display text-3xl text-[#FFF5E9] uppercase tracking-wider">
-                  5TH BLOCK KORAMANGALA
+                  6TH BLOCK KORAMANGALA
                 </h3>
                 <p className="font-body text-sm text-[#D9C1C4] leading-relaxed">
-                  Euphoria Café, Koramangala 5th Block, Bengaluru, Karnataka 560095
+                  Euphoria Café, 880, 6th Cross Rd, 6th Block, Koramangala, Bengaluru, Karnataka 560095 (Near Koramangala Club)
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-white/10 font-mono text-xs text-outline">
-                COORDINATES: 12.9352° N, 77.6245° E
+                COORDINATES: 12.9349° N, 77.6250° E
               </div>
             </div>
 

@@ -23,3 +23,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# script artifacts
+scripts/*.png
+scripts/*.json
+scripts/*.html
