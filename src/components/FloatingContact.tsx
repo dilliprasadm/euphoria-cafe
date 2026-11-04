@@ -1,10 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Phone, MessageCircle, X } from "lucide-react";
 
 export default function FloatingContact() {
+  const pathname = usePathname();
   const [tooltipDismissed, setTooltipDismissed] = useState(false);
+
+  // On the menu page, dedicated order bag and header concierge handle communications
+  if (pathname === "/menu") {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-auto">
