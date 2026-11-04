@@ -52,13 +52,13 @@ export default function StoryPage() {
           <div className="lg:col-span-5 relative flex justify-center">
             <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-[rgba(255,245,233,0.12)]">
               <Image
-                src="/assets/gallery/DSC06477.JPG"
-                alt="Euphoria Cafe warm evening atmosphere and freshly plated dessert"
+                src="/assets/live-site/rooftop-seating.jpg"
+                alt="Euphoria Cafe warm evening atmosphere and open-air rooftop seating"
                 fill
-                className="object-cover"
+                className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06]"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#110e07] via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#110e07]/85 via-black/20 to-transparent pointer-events-none" />
 
               {/* Floating Quote Badge */}
               <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-[#231f18]/90 backdrop-blur-md border border-white/10 shadow-xl flex items-center gap-4">
@@ -79,12 +79,12 @@ export default function StoryPage() {
           <div className="lg:col-span-6 relative">
             <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-[rgba(255,245,233,0.1)]">
               <Image
-                src="/assets/gallery/DSC06489.JPG"
-                alt="Friends gathered around dessert plates"
+                src="/assets/live-site/celebrations-spread.jpg"
+                alt="Euphoria celebration table spread and happy gatherings"
                 fill
-                className="object-cover"
+                className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#110e07]/70 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#110e07]/80 via-transparent to-transparent pointer-events-none" />
             </div>
 
             {/* Mascot Overlap Seal */}
@@ -174,10 +174,10 @@ export default function StoryPage() {
           <div className="lg:col-span-7 bg-[#1f1b14] rounded-3xl overflow-hidden border border-white/10 shadow-xl group flex flex-col justify-between">
             <div className="relative w-full h-80 overflow-hidden">
               <Image
-                src="/assets/gallery/DSC06476.JPG"
-                alt="Velvet booth twilight seating"
+                src="/assets/google-photos/euphoria_google_photo_1.jpg"
+                alt="Velvet booth twilight rooftop seating"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute top-4 left-4 px-3 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-mono text-brand-caramel uppercase">
                 ATMOSPHERE // 01
@@ -185,10 +185,10 @@ export default function StoryPage() {
             </div>
             <div className="p-8">
               <h3 className="font-display text-3xl text-[#FFF5E9] tracking-wider uppercase">
-                THE VELVET BOOTH TWILIGHT
+                THE ROOFTOP TWILIGHT HAVEN
               </h3>
               <p className="font-body text-sm text-[#D9C1C4] mt-2 leading-relaxed">
-                Deep mahogany frames and velvet banquette seating contoured for uninterrupted late-night banter. Where friends linger over towering sundae bowls until closing time.
+                Open-air Koramangala skies and fairy-lit terrace seating contoured for uninterrupted late-night banter. Where friends linger over towering sundae bowls until closing time.
               </p>
             </div>
           </div>
@@ -197,10 +197,10 @@ export default function StoryPage() {
           <div className="lg:col-span-5 bg-[#1f1b14] rounded-3xl overflow-hidden border border-white/10 shadow-xl group flex flex-col justify-between">
             <div className="relative w-full h-80 overflow-hidden">
               <Image
-                src="/assets/gallery/DSC06478.JPG"
-                alt="Quiet corner reading nook"
+                src="/assets/google-photos/euphoria_google_photo_7.jpg"
+                alt="Terrace seating and lush potted greenery"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute top-4 left-4 px-3 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-mono text-brand-pink uppercase">
                 SANCTUARY // 02
@@ -208,10 +208,10 @@ export default function StoryPage() {
             </div>
             <div className="p-8">
               <h3 className="font-display text-3xl text-[#FFF5E9] tracking-wider uppercase">
-                THE GOLDEN HOUR READING NOOK
+                THE TERRACE GREENERY RETREAT
               </h3>
               <p className="font-body text-sm text-[#D9C1C4] mt-2 leading-relaxed">
-                Plush dusty rose cushions, warm pendant lights, and a solitary espresso for writers, students, and daydreamers seeking a calm afternoon retreat.
+                Plush cushioned benches, leafy palms, and freshly pulled espresso for writers, students, and daydreamers seeking a calm afternoon retreat.
               </p>
             </div>
           </div>
@@ -220,10 +220,10 @@ export default function StoryPage() {
           <div className="lg:col-span-5 bg-[#1f1b14] rounded-3xl overflow-hidden border border-white/10 shadow-xl group flex flex-col justify-between">
             <div className="relative w-full h-80 overflow-hidden">
               <Image
-                src="/assets/gallery/DSC06492.JPG"
-                alt="Communal table dessert sharing"
+                src="/assets/google-photos/euphoria_google_photo_3.jpg"
+                alt="Communal table dessert sharing and happy moments"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute top-4 left-4 px-3 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-mono text-brand-caramel uppercase">
                 COMMUNITY // 03
@@ -243,10 +243,10 @@ export default function StoryPage() {
           <div className="lg:col-span-7 bg-[#1f1b14] rounded-3xl overflow-hidden border border-white/10 shadow-xl group flex flex-col justify-between">
             <div className="relative w-full h-80 overflow-hidden">
               <Image
-                src="/assets/gallery/DSC06485.JPG"
-                alt="Molten cocoa chocolate ganache pour"
+                src="/assets/google-photos/euphoria_google_photo_5.jpg"
+                alt="Molten cocoa chocolate ganache pour on Liege waffle"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute top-4 left-4 px-3 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-mono text-brand-pink uppercase">
                 GASTRONOMY // 04

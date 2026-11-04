@@ -4,6 +4,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import GoogleReviews from "@/components/GoogleReviews";
+import ReservationForm from "@/components/ReservationForm";
+import CelebrationsSection from "@/components/CelebrationsSection";
 import {
   Phone,
   MapPin,
@@ -16,6 +18,7 @@ import {
   CalendarCheck,
   Flame,
   CheckCircle2,
+  MessageCircle,
 } from "lucide-react";
 
 export default function FindUsPage() {
@@ -74,8 +77,8 @@ export default function FindUsPage() {
           <div className="lg:col-span-5 relative flex justify-center">
             <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-[rgba(255,245,233,0.12)]">
               <Image
-                src="/assets/social/cafe_moment_7.jpg"
-                alt="Euphoria Cafe Koramangala entrance welcoming guests"
+                src="/assets/live-site/cafe-ambiance.jpg"
+                alt="Euphoria Cafe Koramangala welcoming rooftop haven"
                 fill
                 className="object-cover"
                 priority
@@ -104,79 +107,15 @@ export default function FindUsPage() {
         </div>
       </section>
 
-      {/* 2. TABLE RESERVATIONS SECTION — "LET'S SAVE YOU A SEAT" */}
-      <section className="w-full bg-[#1b1510] py-24 px-6 lg:px-12 border-y border-[rgba(255,245,233,0.1)]">
-        <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-            <div>
-              <span className="font-mono text-xs uppercase tracking-widest text-brand-caramel block mb-2">
-                TELEPHONE-BASED CONCIERGE
-              </span>
-              <h2 className="font-display text-5xl sm:text-6xl text-[#FFF5E9] tracking-wider uppercase leading-none">
-                LET&apos;S SAVE YOU A SEAT.
-              </h2>
-            </div>
-            <p className="font-body text-sm sm:text-base text-[#D9C1C4] max-w-md leading-relaxed">
-              Planning a date, catching up with friends, or simply craving something decadent after hours? Give us a call, and our hospitality team will gladly coordinate your seating.
-            </p>
-          </div>
-
-          {/* Large Telephone Dispatch Panel */}
-          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#24030c] via-[#360815] to-[#1c0209] border border-brand-pink/40 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div className="flex flex-col">
-              <span className="font-mono text-xs text-brand-pink uppercase tracking-widest block mb-2">
-                DIRECT TELEPHONE DISPATCH
-              </span>
-              <a
-                href="tel:+919611966969"
-                className="font-display text-5xl sm:text-6xl lg:text-7xl text-[#FFF5E9] tracking-wider hover:text-brand-caramel transition-colors block"
-              >
-                +91 96119 66969
-              </a>
-              <span className="font-mono text-xs text-brand-caramel uppercase tracking-wider block mt-2">
-                Live voice desk · Daily 11:00 AM – 11:30 PM IST
-              </span>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 flex-shrink-0 w-full lg:w-auto">
-              <a
-                href="tel:+919611966969"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-brand-cream text-brand-chocolate hover:bg-brand-caramel hover:text-white transition-all font-mono text-xs font-bold uppercase tracking-widest shadow-2xl"
-              >
-                <Phone className="w-4 h-4 text-brand-wine" />
-                <span>CALL TO RESERVE NOW</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Transparent Process Notice */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs text-[#D9C1C4]">
-            <div className="p-6 rounded-2xl bg-[#231f18] border border-white/5 flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-brand-caramel flex-shrink-0 mt-0.5" />
-              <div>
-                <span className="text-[#FFF5E9] font-bold block mb-1">NO ONLINE QUEUES</span>
-                <span>Speak directly with our team on the floor to check instant table availability.</span>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[#231f18] border border-white/5 flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-brand-pink flex-shrink-0 mt-0.5" />
-              <div>
-                <span className="text-[#FFF5E9] font-bold block mb-1">CELEBRATION HOSTING</span>
-                <span>Special custom waffle cake and seating arrangements for birthday parties.</span>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[#231f18] border border-white/5 flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-brand-caramel flex-shrink-0 mt-0.5" />
-              <div>
-                <span className="text-[#FFF5E9] font-bold block mb-1">WALK-INS WELCOME</span>
-                <span>We always keep tables open for spontaneous dessert lovers every night.</span>
-              </div>
-            </div>
-          </div>
+      {/* 2. TABLE RESERVATIONS SECTION */}
+      <section className="w-full bg-[#17130c] py-20 px-6 lg:px-12 border-y border-[rgba(255,245,233,0.1)]">
+        <div className="max-w-7xl mx-auto">
+          <ReservationForm />
         </div>
       </section>
+
+      {/* 3. CELEBRATIONS & PRIVATE EVENTS */}
+      <CelebrationsSection />
 
       {/* 3. LOCATION & GOOGLE MAPS SECTION */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-24">
@@ -216,18 +155,28 @@ export default function FindUsPage() {
 
               <div className="pt-6 border-t border-white/10 space-y-4">
                 <div>
-                  <span className="font-mono text-xs text-brand-pink uppercase tracking-widest block mb-1">
-                    OPERATING HOURS
+                  <span className="font-mono text-xs text-brand-pink uppercase tracking-widest block mb-2">
+                    OPERATING HOURS // ROOFTOP & CAFÉ
                   </span>
-                  <p className="font-body text-sm text-[#FFF5E9] font-bold">
-                    Monday — Sunday, All Week
-                  </p>
-                  <p className="font-display text-2xl text-brand-caramel font-mono mt-0.5">
-                    11:00 AM — 01:00 AM IST
-                  </p>
-                  <span className="font-mono text-[11px] text-outline block mt-1">
-                    Continuous dine-in and late-night cravings
-                  </span>
+                  <div className="space-y-3 font-mono text-xs">
+                    <div className="p-3 rounded-xl bg-[#110e07] border border-brand-pink/20">
+                      <span className="text-brand-pink font-bold block uppercase tracking-wider text-[10px]">
+                        MORNING 6:00 AM — 11:00 AM
+                      </span>
+                      <span className="text-[#FFF5E9] font-body text-xs">
+                        Healthy breakfast, sourdough toasts, fresh fruit bowls &amp; morning networking
+                      </span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-[#110e07] border border-brand-caramel/20">
+                      <span className="text-brand-caramel font-bold block uppercase tracking-wider text-[10px]">
+                        CAFÉ 11:00 AM — 11:00 PM
+                      </span>
+                      <span className="text-[#FFF5E9] font-body text-xs">
+                        Fresh Liege waffles, sundaes, freakshakes, artisan pizzas, burgers &amp; late cravings
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="pt-4 border-t border-white/5">
@@ -266,12 +215,12 @@ export default function FindUsPage() {
             {/* Background Map Imagery / Aesthetic Grid */}
             <div className="absolute inset-0 z-0 bg-[#231f18] flex items-center justify-center">
               <Image
-                src="/assets/gallery/DSC06474.JPG"
+                src="/assets/google-photos/euphoria_google_photo_1.jpg"
                 alt="Euphoria Cafe Koramangala street presence"
                 fill
-                className="object-cover opacity-35"
+                className="object-cover brightness-105 contrast-105 opacity-75"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#110e07] via-[#17130c]/70 to-[#110e07]/80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#110e07] via-[#17130c]/50 to-[#110e07]/40" />
             </div>
 
             {/* Top Compass Tag */}
@@ -339,7 +288,7 @@ export default function FindUsPage() {
                   src="/assets/web-assets/Decadent Chocolate Strawberry Waffle.png"
                   alt="Golden Belgian Liege waffle with molten chocolate"
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
                 />
                 <span className="absolute top-4 left-4 font-mono text-[9px] uppercase tracking-widest px-3 py-1 rounded bg-black/70 backdrop-blur-md text-brand-caramel">
                   WAFFLE ARCHITECTURE
@@ -362,7 +311,7 @@ export default function FindUsPage() {
                   src="/assets/web-assets/Glossy Berry Cheesecake Slice.png"
                   alt="Cheesecake Waffle with berry coulis"
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
                 />
                 <span className="absolute top-4 left-4 font-mono text-[9px] uppercase tracking-widest px-3 py-1 rounded bg-black/70 backdrop-blur-md text-brand-pink">
                   NEW YORK HYBRID
@@ -385,7 +334,7 @@ export default function FindUsPage() {
                   src="/assets/web-assets/Decadent Chocolate Freakshake Splash.png"
                   alt="Hand-spun thick chocolate freakshake"
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
                 />
                 <span className="absolute top-4 left-4 font-mono text-[9px] uppercase tracking-widest px-3 py-1 rounded bg-black/70 backdrop-blur-md text-brand-caramel">
                   CHILLED FLUTES

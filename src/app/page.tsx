@@ -108,7 +108,7 @@ export default function HomePage() {
                     src="/assets/menu/ChatGPT Image May 12, 2026, 01_51_58 PM.png"
                     alt="Kunafa Pistachio Waffle with toasted kataifi ribbons and emerald pistachio cream"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute bottom-4 left-4 flex gap-2 font-mono text-[11px] uppercase z-10">
                     <span className="bg-[#17130c]/90 text-brand-pink px-3 py-1 rounded backdrop-blur-md">
@@ -157,7 +157,7 @@ export default function HomePage() {
                     src="/assets/web-assets/Glossy Berry Cheesecake Slice.png"
                     alt="Lotus Biscoff Cheesecake Waffle with speculoos cream cheese and biscuit crumbs"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
                   />
                   <span className="absolute top-3 right-3 bg-brand-wine text-brand-pink font-mono text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">
                     BESTSELLER
@@ -198,7 +198,7 @@ export default function HomePage() {
                     src="/assets/web-assets/Decadent Chocolate Strawberry Waffle.png"
                     alt="Decadent Chocolate Strawberry Waffle with fresh berries"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
 
@@ -230,7 +230,7 @@ export default function HomePage() {
                     src="/assets/web-assets/Decadent Chocolate Freakshake Splash.png"
                     alt="Tall artisanal chocolate freakshake splash in crystal coupe"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
 
@@ -262,7 +262,7 @@ export default function HomePage() {
                     src="/assets/web-assets/Decadent Chocolate Strawberry Sundae.png"
                     alt="Death by Chocolate Brownie Sundae with waffle crisps"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
 
@@ -319,11 +319,11 @@ export default function HomePage() {
               </h2>
 
               <p className="font-body text-base sm:text-lg text-[#D9C1C4] leading-relaxed">
-                Euphoria Café wasn’t built to be another quick-stop dessert kiosk. Tucked into the vibrant grid of Koramangala 5th Block, we engineered a warm, luminous haven where tactile crunch meets unapologetic indulgence.
+                Euphoria Café is Koramangala&apos;s rooftop haven and confectionery sanctuary. Tucked above the vibrant grid of Koramangala 6th Block, we engineered an open-air rooftop where tactile crunch meets unapologetic indulgence.
               </p>
 
               <p className="font-body text-sm text-outline leading-relaxed">
-                Our rotary waffle irons are calibrated precisely at 185°C to caramelize authentic Belgian pearl sugar instantly on contact, sealing an airy, pillow-soft crumb beneath a golden shatter-crisp exterior.
+                From 6:00 AM healthy sourdough toasts and networking coffee under the morning skies, to artisanal Liege waffles pressed live at 185°C with caramelized Belgian pearl sugar until late evening.
               </p>
 
               {/* Three Culinary Technical Badges */}
@@ -338,18 +338,18 @@ export default function HomePage() {
                 </div>
                 <div className="bg-[#231f18] p-4 rounded-xl border border-white/5 flex flex-col">
                   <span className="font-display text-3xl text-brand-pink font-mono">
-                    54%
+                    ROOFTOP
                   </span>
                   <span className="font-mono text-[10px] text-outline uppercase tracking-wider mt-1">
-                    BELGIAN CACAO
+                    OPEN-AIR SKIES
                   </span>
                 </div>
                 <div className="bg-[#231f18] p-4 rounded-xl border border-white/5 flex flex-col">
                   <span className="font-display text-3xl text-secondary-fixed font-mono">
-                    01 AM
+                    06 AM
                   </span>
                   <span className="font-mono text-[10px] text-outline uppercase tracking-wider mt-1">
-                    MIDNIGHT SERVICE
+                    MORNING SERVICE
                   </span>
                 </div>
               </div>
@@ -359,12 +359,12 @@ export default function HomePage() {
             <div className="lg:col-span-7 relative flex justify-center items-center">
               <div className="relative w-full max-w-lg aspect-square rounded-2xl overflow-hidden shadow-2xl border border-[rgba(255,245,233,0.12)]">
                 <Image
-                  src="/assets/gallery/DSC06476.JPG"
-                  alt="Cozy ambient interior of Euphoria Cafe Koramangala with warm lighting"
+                  src="/assets/live-site/rooftop-seating.jpg"
+                  alt="Cozy ambient rooftop of Euphoria Cafe Koramangala with warm lighting"
                   fill
-                  className="object-cover"
+                  className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#110e07]/80 via-transparent to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#110e07]/80 via-transparent to-transparent pointer-events-none" />
               </div>
 
               {/* Official Euphoria Loves You Mascot Seal */}
@@ -465,28 +465,35 @@ export default function HomePage() {
                   SERVICE HOURS
                 </span>
               </div>
-              <div className="space-y-2">
-                <h3 className="font-display text-3xl text-[#FFF5E9] uppercase tracking-wider">
-                  EVERY SINGLE DAY
-                </h3>
-                <p className="font-body text-sm text-brand-pink font-bold">
-                  11:00 AM — 01:00 AM IST
-                </p>
-                <p className="font-body text-xs text-outline leading-relaxed">
-                  Late-night dessert cravings, warm dine-in seating &amp; takeaway service.
-                </p>
+              <div className="space-y-3 font-mono text-xs">
+                <div>
+                  <span className="text-brand-pink font-bold block text-sm">
+                    MORNING 6:00 AM — 11:00 AM
+                  </span>
+                  <span className="text-outline font-body text-xs">
+                    Healthy breakfast, sourdough toasts &amp; morning networking
+                  </span>
+                </div>
+                <div className="pt-2 border-t border-white/10">
+                  <span className="text-brand-caramel font-bold block text-sm">
+                    CAFÉ 11:00 AM — 11:00 PM
+                  </span>
+                  <span className="text-outline font-body text-xs">
+                    Hot Liege waffles, sundaes, pizzas, shakes &amp; late desserts
+                  </span>
+                </div>
               </div>
               <div className="mt-6 pt-4 border-t border-white/10 font-mono text-xs text-brand-caramel">
-                STATUS: FRESH BATTER AT 185°C
+                ROOFTOP SEATING &amp; INDOOR LOUNGE
               </div>
             </div>
 
-            {/* Card 3: Reservations & Warm Invitation */}
+            {/* Card 3: Reservations & Celebrations */}
             <div className="bg-brand-wine/50 border border-brand-pink/30 p-8 rounded-2xl flex flex-col justify-between shadow-xl">
               <div className="flex items-center gap-2 text-brand-pink mb-4">
                 <Heart className="w-5 h-5 fill-brand-pink" />
                 <span className="font-mono text-xs uppercase tracking-widest">
-                  RESERVATIONS
+                  RESERVATIONS &amp; CELEBRATIONS
                 </span>
               </div>
               <div className="space-y-2">
@@ -494,17 +501,24 @@ export default function HomePage() {
                   LET&apos;S SAVE YOU A SEAT
                 </h3>
                 <p className="font-body text-sm text-[#D9C1C4] leading-relaxed">
-                  Planning a celebration or midnight waffle rendezvous? Ring our direct telephone desk.
+                  Book a table online or plan birthdays, private rooftop parties &amp; meetups with instant WhatsApp confirmation.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-brand-pink/20">
-                <a
-                  href="tel:+919611966969"
-                  className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#FFF5E9] hover:text-brand-caramel transition-colors"
+              <div className="mt-6 pt-4 border-t border-brand-pink/20 flex flex-col gap-2">
+                <Link
+                  href="/find-us#reserve"
+                  className="inline-flex items-center justify-between font-mono text-xs font-bold text-[#FFF5E9] hover:text-brand-caramel transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-brand-caramel" />
-                  <span>+91 96119 66969 (CALL DESK)</span>
-                </a>
+                  <span>RESERVE A TABLE ONLINE</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <Link
+                  href="/find-us#celebrations"
+                  className="inline-flex items-center justify-between font-mono text-xs text-brand-pink hover:text-white transition-colors"
+                >
+                  <span>PLAN A CELEBRATION / PARTY</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
             </div>
           </div>

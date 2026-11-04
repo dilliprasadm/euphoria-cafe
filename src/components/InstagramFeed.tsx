@@ -17,56 +17,83 @@ interface SocialPost {
 const SOCIAL_POSTS: SocialPost[] = [
   {
     id: "post-1",
-    image: "/assets/social/cafe_moment_7.jpg",
-    caption: "Step into our fairytale rooftop haven in the heart of Koramangala! 🌸✨ Freshly pressed waffles & cozy vibes every day until 11 PM.",
-    likes: "482",
-    comments: "39",
-    tag: "Fairytale Entrance",
+    image: "/assets/live-site/rooftop-seating.jpg",
+    caption: "Open-air skies, fairy lights, and cozy rooftop seating right in the heart of Koramangala 6th Block! ☀️🌿 Sourdough toasts from 6 AM and hot waffles till 11 PM.",
+    likes: "642",
+    comments: "54",
+    tag: "Rooftop Terrace",
     aspect: "col-span-1 md:col-span-1"
   },
   {
     id: "post-2",
-    image: "/assets/social/cafe_moment_9.jpg",
-    caption: "Our iconic 'Euphoria Loves You' wall 🐘💕 The sweetest spot for your weekend dates and selfie memories.",
-    likes: "614",
-    comments: "52",
-    tag: "Iconic Mural",
+    image: "/assets/live-site/waffles-berries.jpg",
+    caption: "Golden Liege waffle pressed live at 185°C with ripe strawberries & Belgian chocolate drizzle! 🍓🧇 The ultimate sweet indulgence.",
+    likes: "819",
+    comments: "68",
+    tag: "Fresh Berry Waffles",
     aspect: "col-span-1 md:col-span-1"
   },
   {
     id: "post-3",
-    image: "/assets/social/cafe_moment_5.jpg",
-    caption: "Birthdays are sweeter at Euphoria! 🎉 Lotus Biscoff layer cakes, gourmet burgers & rose celebrations with the best squad.",
-    likes: "378",
-    comments: "28",
-    tag: "Celebrations",
+    image: "/assets/live-site/coffee-brew.jpg",
+    caption: "Morning breakfast & networking coffee under Bangalore skies. Fresh espresso extractions from 6 AM every day! ☕✨",
+    likes: "485",
+    comments: "37",
+    tag: "Artisanal Espresso",
     aspect: "col-span-1 md:col-span-1"
   },
   {
     id: "post-4",
-    image: "/assets/social/cafe_moment_2.jpg",
-    caption: "Foosball championships, board games, and thick milkshakes! Unplug from the screen and make real connections. 🎲☕",
-    likes: "529",
-    comments: "44",
-    tag: "Game Lounge",
+    image: "/assets/live-site/celebrations-spread.jpg",
+    caption: "Birthdays, bride-to-be parties, and reunion feasts are sweeter on our rooftop! 🎉🥂 Reserve your customized celebration package.",
+    likes: "931",
+    comments: "82",
+    tag: "Celebration Feast",
     aspect: "col-span-1 md:col-span-1"
   },
   {
     id: "post-5",
-    image: "/assets/social/cafe_moment_11.jpg",
-    caption: "Waffle Sundaes loaded with Death by Chocolate Brownies, Ferrero Rocher & Belgian ganache. Which one are you trying today? 🍫🍨",
-    likes: "892",
-    comments: "71",
-    tag: "Dessert Atelier",
+    image: "/assets/google-photos/euphoria_google_photo_4.jpg",
+    caption: "Late night sweet cravings sorted! Decadent brownie sundaes, loaded freakshakes, and warm waffle bites. 🍫🍨",
+    likes: "740",
+    comments: "49",
+    tag: "Dessert Haven",
     aspect: "col-span-1 md:col-span-1"
   },
   {
     id: "post-6",
-    image: "/assets/reviews/review_photo_6.jpg",
-    caption: "Our weekend community board game jam! Beanbags, giant teddy bears, and endless laughter with old & new friends. 🧸🧩",
-    likes: "445",
-    comments: "33",
-    tag: "Community Jam",
+    image: "/assets/live-site/cafe-ambiance.jpg",
+    caption: "Good mood. Great food. Cozy corners, great conversations, and pure happiness. See you upstairs at Euphoria! 🐘💕",
+    likes: "567",
+    comments: "41",
+    tag: "Euphoria Sanctuary",
+    aspect: "col-span-1 md:col-span-1"
+  },
+  {
+    id: "post-7",
+    image: "/assets/google-photos/euphoria_google_photo_6.jpg",
+    caption: "Crispy Peri-Peri crinkle fries, melted cheese pull baguettes, and gourmet loaded fries to balance every sweet dessert! 🍟🧀",
+    likes: "612",
+    comments: "38",
+    tag: "Savory Bites",
+    aspect: "col-span-1 md:col-span-1"
+  },
+  {
+    id: "post-8",
+    image: "/assets/online-gallery/online_photo_1.jpg",
+    caption: "The Euphoria waffle spread that turns any casual hangout into an unforgettable dessert feast! 🧇🍓 Belgian Liege perfection.",
+    likes: "874",
+    comments: "73",
+    tag: "Waffle Feast",
+    aspect: "col-span-1 md:col-span-1"
+  },
+  {
+    id: "post-9",
+    image: "/assets/online-gallery/online_photo_10.jpg",
+    caption: "Beat the Bangalore sun with crushed ice blueberry mojitos and fizzy craft coolers under our rooftop palms! 🧊🫐🌿",
+    likes: "529",
+    comments: "44",
+    tag: "Artisan Coolers",
     aspect: "col-span-1 md:col-span-1"
   }
 ];
@@ -115,7 +142,7 @@ export default function InstagramFeed() {
                 alt={post.caption}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06] transition-transform duration-700 group-hover:scale-105"
               />
 
               {/* Top Tag */}
@@ -166,7 +193,7 @@ export default function InstagramFeed() {
                   src={selectedPost.image}
                   alt={selectedPost.caption}
                   fill
-                  className="object-cover"
+                  className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06]"
                 />
               </div>
 

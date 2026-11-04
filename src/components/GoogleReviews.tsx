@@ -197,7 +197,7 @@ export default function GoogleReviews() {
                           alt={`Customer photo ${pIdx + 1} by ${review.author}`}
                           fill
                           sizes="80px"
-                          className="object-cover"
+                          className="object-cover brightness-[1.08] contrast-[1.03] saturate-[1.06]"
                         />
                         <div className="absolute inset-0 bg-black/10 group-hover/thumb:bg-transparent transition-colors" />
                       </button>
@@ -220,7 +220,7 @@ export default function GoogleReviews() {
                 src={activePhoto}
                 alt="Enlarged review photo"
                 fill
-                className="object-contain"
+                className="object-contain brightness-[1.08] contrast-[1.03] saturate-[1.06]"
               />
               <button
                 onClick={() => setActivePhoto(null)}

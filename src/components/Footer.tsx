@@ -55,7 +55,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/menu" className="hover:text-brand-caramel transition-colors">
-                  Menu Codex
+                  Menu &amp; Order
                 </Link>
               </li>
               <li>
@@ -70,7 +70,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/find-us" className="hover:text-brand-caramel transition-colors">
-                  Find Us & Reservations
+                  Reserve &amp; Events
                 </Link>
               </li>
             </ul>
@@ -83,14 +83,14 @@ export default function Footer() {
             </span>
             <div className="flex flex-col gap-3 font-mono text-xs text-[#D9C1C4]">
               <div>
-                <span className="block text-brand-caramel font-bold">Dine-in & Takeaway</span>
-                <span>Mon – Sun, All Week</span>
-                <span className="block text-[#FFF5E9]">11:00 AM — 01:00 AM</span>
+                <span className="block text-brand-pink font-bold">Morning Breakfast</span>
+                <span>Daily 6:00 AM – 11:00 AM</span>
+                <span className="block text-[#FFF5E9]">Toasts &amp; Networking</span>
               </div>
               <div className="pt-2 border-t border-white/5">
-                <span className="block text-brand-pink font-bold">Telephone Desk</span>
-                <span>Daily Calls</span>
-                <span className="block text-[#FFF5E9]">11:00 AM — 11:30 PM</span>
+                <span className="block text-brand-caramel font-bold">Café &amp; Rooftop</span>
+                <span>Daily 11:00 AM – 11:00 PM</span>
+                <span className="block text-[#FFF5E9]">Waffles, Coffee &amp; Bites</span>
               </div>
             </div>
           </div>
